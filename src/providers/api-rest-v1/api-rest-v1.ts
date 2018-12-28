@@ -18,7 +18,7 @@ export class ApiRestV1Provider extends BaseProvider{
   private apiName = 'api_restv1'
 
   private reclamosResource = `${this.baseURL}/${this.apiName}/check_reclamos`;
-  private tipoReclamosResource = `${this.baseURL}/${this.apiName}/tipos_reclamo`;
+  private tipoReclamosResource = `${this.baseURL}/${this.apiName}/check_tipos_reclamo`;
 
   constructor(public http: HttpClient) {
     super();

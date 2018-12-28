@@ -1,4 +1,4 @@
 export class TipoReclamo {
     id: number;
-    descripcion: string;
+    nombre: string;
 }

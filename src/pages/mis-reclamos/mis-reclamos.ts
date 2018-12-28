@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { NuevoReclamoPage } from '../nuevo-reclamo/nuevo-reclamo';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
+import { VerReclamoPage } from '../ver-reclamo/ver-reclamo';
+import { FormReclamoPage } from '../form-reclamo/form-reclamo';
 
 /**
  * Generated class for the MisReclamosPage page.
@@ -37,7 +38,13 @@ export class MisReclamosPage {
   }
 
   nuevoReclamo() {
-    this.navCtrl.push(NuevoReclamoPage);
+    this.navCtrl.push(FormReclamoPage);
+  }
+
+  itemTapped(event, item) {
+    this.navCtrl.push(VerReclamoPage, {
+      item: item
+    });
   }
 
   ionViewDidLoad() {

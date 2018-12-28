@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
+import { VerReclamoPage } from '../ver-reclamo/ver-reclamo';
 
 /**
  * Generated class for the HomePage page.
@@ -32,6 +33,12 @@ export class HomePage {
     this.apiService.getReclamos().subscribe(data => {
       this.reclamos = data;
       this.cargando_reclamos = false;
+    });
+  }
+
+  itemTapped(event, item) {
+    this.navCtrl.push(VerReclamoPage, {
+      item: item
     });
   }
 

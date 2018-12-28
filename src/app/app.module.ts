@@ -10,9 +10,10 @@ import { MainPage } from '../pages/main/main';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { HomePage } from '../pages/home/home';
 import { MisReclamosPage } from '../pages/mis-reclamos/mis-reclamos';
-import { NuevoReclamoPage } from '../pages/nuevo-reclamo/nuevo-reclamo';
 import { ApiRestV1Provider } from '../providers/api-rest-v1/api-rest-v1';
 import { HttpClientModule } from '@angular/common/http';
+import { VerReclamoPage } from '../pages/ver-reclamo/ver-reclamo';
+import { FormReclamoPage } from '../pages/form-reclamo/form-reclamo';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     MainPage,
     HomePage,
     MisReclamosPage,
-    NuevoReclamoPage
+    FormReclamoPage,
+    VerReclamoPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     MainPage,
     HomePage,
     MisReclamosPage,
-    NuevoReclamoPage
+    FormReclamoPage,
+    VerReclamoPage
   ],
   providers: [
     StatusBar,
