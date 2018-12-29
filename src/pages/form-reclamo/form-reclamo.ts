@@ -27,9 +27,10 @@ export class FormReclamoPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public apiService: ApiRestV1Provider) {
-    this.selectedItem = navParams.get('item');
+    this.selectedItem = this.navParams.get('item');
     this.getTiposReclamo();
     if (this.selectedItem) {
+      this.reclamo = this.selectedItem;
       this.titulo = 'Editar reclamo';
     } else {
       this.titulo = 'Nuevo reclamo';
@@ -45,8 +46,28 @@ export class FormReclamoPage {
       );
   }
 
-  guardar() {
-    console.log("Guardar reclamo");
+  guardar(): void {
+    if (!this.reclamo.id) {
+      this.nuevoReclamo();
+    }else {
+      this.modificarReclamo();
+    }    
+  }
+
+  nuevoReclamo() {
+    this.apiService.createReclamo(this.reclamo)
+    .subscribe(data => {
+      this.reclamo = data;
+      this.navCtrl.pop();
+    });      
+  }
+
+  modificarReclamo() {
+    this.apiService.updateReclamo(this.reclamo)
+    .subscribe(data => {
+      this.reclamo = data;
+      this.navCtrl.pop();
+    });      
   }
 
   ionViewDidLoad() {

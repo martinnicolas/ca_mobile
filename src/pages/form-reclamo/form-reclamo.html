@@ -15,8 +15,8 @@
 
 <ion-content padding>
   <ion-item>
-    <ion-label>Tipo de reclamo</ion-label>
-    <ion-select [(ngModel)]="reclamo.tipo_documento_id" okText="Aceptar" cancelText="Cancelar">
+    <ion-label color="primary" floating>Tipo de reclamo</ion-label>
+    <ion-select [(ngModel)]="reclamo.tipo_reclamo_id" okText="Aceptar" cancelText="Cancelar">
       <ion-option *ngFor="let item of tipos_reclamo" [value]="item.id">{{item.nombre}}</ion-option>        
     </ion-select>
   </ion-item>

@@ -17,19 +17,18 @@ export class ApiRestV1Provider extends BaseProvider{
   //Nombre de la API REST
   private apiName = 'api_restv1'
 
-  private reclamosResource = `${this.baseURL}/${this.apiName}/check_reclamos`;
-  private tipoReclamosResource = `${this.baseURL}/${this.apiName}/check_tipos_reclamo`;
+  private reclamosResource = `${this.baseURL}/${this.apiName}`;
 
   constructor(public http: HttpClient) {
     super();
   }
 
   getReclamos(): Observable<Reclamo[]> {
-    return this.http.get<Reclamo[]>(this.reclamosResource);
+    return this.http.get<Reclamo[]>(`${this.reclamosResource}/check_reclamos`);
   }
 
   getTiposReclamo(): Observable<TipoReclamo[]> {
-    return this.http.get<TipoReclamo[]>(this.tipoReclamosResource);
+    return this.http.get<TipoReclamo[]>(`${this.reclamosResource}/check_tipos_reclamo`);
   }
 
   createReclamo(reclamo: Reclamo): Observable<Reclamo> {
@@ -40,7 +39,7 @@ export class ApiRestV1Provider extends BaseProvider{
     params.set('tipo_reclamo_id', reclamo.tipo_reclamo_id.toString());
     params.set('titulo', reclamo.titulo.toString());
     params.set('descripcion', reclamo.descripcion.toString());
-    return this.http.post<Reclamo>(this.reclamosResource, params.toString(), options);
+    return this.http.post<Reclamo>(`${this.reclamosResource}/check_reclamos`, params.toString(), options);
   }
 
   updateReclamo(reclamo: Reclamo): Observable<Reclamo> {
@@ -51,15 +50,11 @@ export class ApiRestV1Provider extends BaseProvider{
     params.set('tipo_reclamo_id', reclamo.tipo_reclamo_id.toString());
     params.set('titulo', reclamo.titulo.toString());
     params.set('descripcion', reclamo.descripcion.toString());
-    return this.http.put<Reclamo>(`${this.reclamosResource}/${reclamo.id}`, params.toString(), options);
+    return this.http.put<Reclamo>(`${this.reclamosResource}/check_reclamos/${reclamo.id}`, params.toString(), options);
   }
 
   deleteReclamo(reclamo: Reclamo): Observable<Reclamo> {
-    return this.http.delete<Reclamo>(`${this.reclamosResource}/${reclamo.id}`);
-  }
-
-  getReclamo(id: number): Observable<Reclamo> {
-    return this.http.get<Reclamo>(`${this.reclamosResource}/${id}`);
+    return this.http.delete<Reclamo>(`${this.reclamosResource}/check_reclamos/${reclamo.id}`);
   }
 
 }
