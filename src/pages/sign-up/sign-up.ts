@@ -4,6 +4,7 @@ import { MainPage } from '../main/main';
 import { User } from '../../models/User';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AuthData } from '../../models/AuthData';
 
 /**
  * Generated class for the SignUpPage page.
@@ -19,6 +20,7 @@ import { LocalStorageProvider } from '../../providers/local-storage/local-storag
 })
 export class SignUpPage {
 
+  auth_data: AuthData;
   user: User;
 
   constructor(
@@ -32,9 +34,8 @@ export class SignUpPage {
   signup() {
     this.apiService.signup(this.user)
     .subscribe(data => {
-      this.user = data;
-      this.localStorage.setData('email', this.user.email);
-      this.localStorage.setData('authentication_token', this.user.authentication_token);
+      this.auth_data = data;
+      this.localStorage.setData('authentication_token', this.auth_data.auth_token);
       this.navCtrl.push(MainPage);
       console.log("Login");
     });      

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { tokenKey } from '@angular/core/src/view';
 
 /*
   Generated class for the LocalStorageProvider provider.
@@ -19,12 +20,8 @@ export class LocalStorageProvider {
       
   }
 
-  getData(key: string) {
-
-    this.storage.get(key).then((val) => {
-      this.value = val;
-    });
-    return this.value;
+  async getData(key: string) {
+    return await this.storage.get(key);
   }
 
   setData(key: string, value: any) {

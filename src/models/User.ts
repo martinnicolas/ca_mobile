@@ -3,5 +3,4 @@ export class User {
     email: string;
     password: string;
     confirm_password: string;
-    authentication_token: string;
 }

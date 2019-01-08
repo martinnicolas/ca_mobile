@@ -6,6 +6,7 @@ import { TipoReclamo } from '../../models/TipoReclamo';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../models/User';
 import { LocalStorageProvider } from '../local-storage/local-storage';
+import { AuthData } from '../../models/AuthData';
 
 /*
   Generated class for the ApiRestV1Provider provider.
@@ -20,6 +21,8 @@ export class ApiRestV1Provider extends BaseProvider{
   private apiName = 'api_restv1'
 
   private resource = `${this.baseURL}/${this.apiName}`;
+  private token;
+
 
   constructor(
     public http: HttpClient,
@@ -27,17 +30,17 @@ export class ApiRestV1Provider extends BaseProvider{
     super();
   }
 
-  login(user: User): Observable<User> {
+  signin(user: User): Observable<AuthData> {
     let options = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     };
     let params = new URLSearchParams();
     params.set('email', user.email.toString());
     params.set('password', user.password.toString());
-    return this.http.post<User>(`${this.resource}/signin`, params.toString(), options);
+    return this.http.post<AuthData>(`${this.resource}/signin`, params.toString(), options);
   }
 
-  signup(user: User): Observable<User> {
+  signup(user: User): Observable<AuthData> {
     let options = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     };
@@ -45,14 +48,17 @@ export class ApiRestV1Provider extends BaseProvider{
     params.set('email', user.email.toString());
     params.set('password', user.password.toString());
     params.set('confirm_password', user.confirm_password.toString());
-    return this.http.post<User>(`${this.resource}/signup`, params.toString(), options);
+    return this.http.post<AuthData>(`${this.resource}/signup`, params.toString(), options);
   }
 
   getReclamos(): Observable<Reclamo[]> {
+    this.localStorage.getData('auth_token').then((token) => {
+      this.token = token;
+    });
+
     let options = {
       headers: new HttpHeaders({
-        'Authorization': this.localStorage.getData('authentication_token').toString(),
-        'email': this.localStorage.getData('email').toString(),
+        'Authorization': 'Bearer '+this.token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
@@ -60,10 +66,13 @@ export class ApiRestV1Provider extends BaseProvider{
   }
 
   getTiposReclamo(): Observable<TipoReclamo[]> {
+    this.localStorage.getData('auth_token').then((token) => {
+      this.token = token;
+    });
+
     let options = {
       headers: new HttpHeaders({
-        'Authorization': this.localStorage.getData('authentication_token').toString(),
-        'email': this.localStorage.getData('email').toString(),
+        'Authorization': 'Bearer '+this.token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
@@ -71,10 +80,13 @@ export class ApiRestV1Provider extends BaseProvider{
   }
 
   createReclamo(reclamo: Reclamo): Observable<Reclamo> {
+    this.localStorage.getData('auth_token').then((token) => {
+      this.token = token;
+    });
+
     let options = {
       headers: new HttpHeaders({
-        'Authorization': this.localStorage.getData('authentication_token').toString(),
-        'email': this.localStorage.getData('email').toString(),
+        'Authorization': 'Bearer '+this.token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
@@ -86,10 +98,13 @@ export class ApiRestV1Provider extends BaseProvider{
   }
 
   updateReclamo(reclamo: Reclamo): Observable<Reclamo> {
+    this.localStorage.getData('auth_token').then((token) => {
+      this.token = token;
+    });
+
     let options = {
       headers: new HttpHeaders({
-        'Authorization': this.localStorage.getData('authentication_token').toString(),
-        'email': this.localStorage.getData('email').toString(),
+        'Authorization': 'Bearer '+this.token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
@@ -101,10 +116,13 @@ export class ApiRestV1Provider extends BaseProvider{
   }
 
   deleteReclamo(reclamo: Reclamo): Observable<Reclamo> {
+    this.localStorage.getData('auth_token').then((token) => {
+      this.token = token;
+    });
+
     let options = {
       headers: new HttpHeaders({
-        'Authorization': this.localStorage.getData('authentication_token').toString(),
-        'email': this.localStorage.getData('email').toString(),
+        'Authorization': 'Bearer '+this.token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
