@@ -14,6 +14,8 @@ import { ApiRestV1Provider } from '../providers/api-rest-v1/api-rest-v1';
 import { HttpClientModule } from '@angular/common/http';
 import { VerReclamoPage } from '../pages/ver-reclamo/ver-reclamo';
 import { FormReclamoPage } from '../pages/form-reclamo/form-reclamo';
+import { IonicStorageModule } from '@ionic/storage';
+import { LocalStorageProvider } from '../providers/local-storage/local-storage';
 
 @NgModule({
   declarations: [
@@ -28,8 +30,17 @@ import { FormReclamoPage } from '../pages/form-reclamo/form-reclamo';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    HttpClientModule
+    IonicModule.forRoot(MyApp, {
+      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      monthShortNames: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+      dayNames: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo' ],
+      dayShortNames: ['lun', 'mar', 'mier', 'jue', 'vie', 'sab', 'dom' ],
+    }),
+    HttpClientModule,
+    IonicStorageModule.forRoot({
+      name: '__ciudad_activa',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,6 +58,7 @@ import { FormReclamoPage } from '../pages/form-reclamo/form-reclamo';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ApiRestV1Provider,
+    LocalStorageProvider,
   ]
 })
 export class AppModule {}

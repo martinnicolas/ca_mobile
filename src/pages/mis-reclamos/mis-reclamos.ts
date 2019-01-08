@@ -4,6 +4,7 @@ import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { VerReclamoPage } from '../ver-reclamo/ver-reclamo';
 import { FormReclamoPage } from '../form-reclamo/form-reclamo';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 /**
  * Generated class for the MisReclamosPage page.

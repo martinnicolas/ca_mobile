@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
+import { LocalStorageProvider } from '../providers/local-storage/local-storage';
+import { MainPage } from '../pages/main/main';
 @Component({
   templateUrl: 'app.html'
 })

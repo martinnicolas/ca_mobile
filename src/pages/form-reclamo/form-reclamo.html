@@ -25,6 +25,11 @@
     <ion-input [(ngModel)]="reclamo.titulo"></ion-input>
   </ion-item>
   <ion-item>
+    <ion-label type="date" color="primary" floating>Fecha</ion-label>
+    <ion-datetime displayFormat="DD MMMM YYYY" max="2020-10-31" [(ngModel)]="reclamo.fecha" cancelText="Cancelar" doneText="Aceptar">
+    </ion-datetime>
+  </ion-item>
+  <ion-item>
     <ion-label type="text" color="primary" floating>Descripción</ion-label>
     <ion-textarea [(ngModel)]="reclamo.descripcion"></ion-textarea>
   </ion-item>

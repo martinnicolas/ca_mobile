@@ -16,15 +16,15 @@
 <ion-content padding>
   <ion-item class="item-login">
     <ion-label color="primary" floating>Email</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input [(ngModel)]="user.email" type="text"></ion-input>
   </ion-item>
   <ion-item class="item-login">
     <ion-label color="primary" floating>Clave</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-input [(ngModel)]="user.password" type="password"></ion-input>
   </ion-item>
   <ion-item class="item-login">
     <ion-label color="primary" floating>Confirmar Clave</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-input [(ngModel)]="user.confirm_password" type="password"></ion-input>
   </ion-item>
   <button ion-button block color="secondary" (click)="signup()">
     Registrarse

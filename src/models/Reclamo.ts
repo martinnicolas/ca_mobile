@@ -4,6 +4,7 @@ export class Reclamo {
     id: number;
     titulo: string;
     descripcion: string;
+    fecha: Date;
     tipo_reclamo_id: number;
     
     tipo_reclamo: TipoReclamo;

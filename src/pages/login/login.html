@@ -18,11 +18,11 @@
   <ion-img id="logo-login" width="80" height="80" src="assets/imgs/logot.png"></ion-img>
   <ion-item class="item-login">
     <ion-label color="primary" floating>Email</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input [(ngModel)]="user.email" type="text"></ion-input>
   </ion-item>
   <ion-item class="item-login">
     <ion-label color="primary" floating>Clave</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-input [(ngModel)]="user.password" type="password"></ion-input>
   </ion-item>
   <button ion-button block (click)="signin()">
     Ingresar
