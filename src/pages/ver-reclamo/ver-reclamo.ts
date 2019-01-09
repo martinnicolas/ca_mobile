@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController, AlertContro
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { FormReclamoPage } from '../form-reclamo/form-reclamo';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 /**
  * Generated class for the VerReclamoPage page.
@@ -26,7 +27,8 @@ export class VerReclamoPage {
     public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController,
-    public apiService: ApiRestV1Provider) {
+    public apiService: ApiRestV1Provider,
+    private localStorage: LocalStorageProvider) {
       this.selectedItem = this.navParams.get('item');
   }
 
@@ -88,10 +90,12 @@ export class VerReclamoPage {
   }
 
   eliminarReclamo(reclamo: Reclamo): void {
-    this.apiService.deleteReclamo(reclamo).
+    this.localStorage.getData('auth_token').then((token) => {
+      this.apiService.deleteReclamo(reclamo, token).
       subscribe(data => {
         this.navCtrl.pop();
       });
+    });
   }
 
   ionViewDidLoad() {

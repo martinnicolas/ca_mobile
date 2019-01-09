@@ -26,15 +26,18 @@ export class MisReclamosPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public apiService: ApiRestV1Provider) {
+    public apiService: ApiRestV1Provider,
+    private localStorage: LocalStorageProvider) {
       this.getReclamos();
   }
 
   getReclamos(): void {
-    this.cargando_reclamos = true;
-    this.apiService.getReclamos().subscribe(data => {
-      this.reclamos = data;
-      this.cargando_reclamos = false;
+    this.localStorage.getData('auth_token').then((token) => {
+      this.cargando_reclamos = true;
+      this.apiService.getReclamos(token).subscribe(data => {
+        this.reclamos = data;
+        this.cargando_reclamos = false;
+      });
     });
   }
 

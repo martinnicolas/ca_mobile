@@ -5,7 +5,6 @@ import { Reclamo } from '../../models/Reclamo';
 import { TipoReclamo } from '../../models/TipoReclamo';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../models/User';
-import { LocalStorageProvider } from '../local-storage/local-storage';
 import { AuthData } from '../../models/AuthData';
 
 /*
@@ -20,13 +19,12 @@ export class ApiRestV1Provider extends BaseProvider{
   //Nombre de la API REST
   private apiName = 'api_restv1'
 
+  //Resource
   private resource = `${this.baseURL}/${this.apiName}`;
-  private token;
 
 
   constructor(
-    public http: HttpClient,
-    private localStorage: LocalStorageProvider) {
+    public http: HttpClient) {
     super();
   }
 
@@ -51,42 +49,30 @@ export class ApiRestV1Provider extends BaseProvider{
     return this.http.post<AuthData>(`${this.resource}/signup`, params.toString(), options);
   }
 
-  getReclamos(): Observable<Reclamo[]> {
-    this.localStorage.getData('auth_token').then((token) => {
-      this.token = token;
-    });
-
+  getReclamos(token: string): Observable<Reclamo[]> {
     let options = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+this.token,
+        'Authorization': 'Bearer '+token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
     return this.http.get<Reclamo[]>(`${this.resource}/reclamos`, options);
   }
 
-  getTiposReclamo(): Observable<TipoReclamo[]> {
-    this.localStorage.getData('auth_token').then((token) => {
-      this.token = token;
-    });
-
+  getTiposReclamo(token: string): Observable<TipoReclamo[]> {
     let options = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+this.token,
+        'Authorization': 'Bearer '+token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
     return this.http.get<TipoReclamo[]>(`${this.resource}/tipos_reclamo`, options);
   }
 
-  createReclamo(reclamo: Reclamo): Observable<Reclamo> {
-    this.localStorage.getData('auth_token').then((token) => {
-      this.token = token;
-    });
-
+  createReclamo(reclamo: Reclamo, token: string): Observable<Reclamo> {
     let options = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+this.token,
+        'Authorization': 'Bearer '+token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
@@ -97,14 +83,10 @@ export class ApiRestV1Provider extends BaseProvider{
     return this.http.post<Reclamo>(`${this.resource}/reclamos`, params.toString(), options);
   }
 
-  updateReclamo(reclamo: Reclamo): Observable<Reclamo> {
-    this.localStorage.getData('auth_token').then((token) => {
-      this.token = token;
-    });
-
+  updateReclamo(reclamo: Reclamo, token: string): Observable<Reclamo> {
     let options = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+this.token,
+        'Authorization': 'Bearer '+token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
@@ -115,14 +97,10 @@ export class ApiRestV1Provider extends BaseProvider{
     return this.http.put<Reclamo>(`${this.resource}/reclamos/${reclamo.id}`, params.toString(), options);
   }
 
-  deleteReclamo(reclamo: Reclamo): Observable<Reclamo> {
-    this.localStorage.getData('auth_token').then((token) => {
-      this.token = token;
-    });
-
+  deleteReclamo(reclamo: Reclamo, token: string): Observable<Reclamo> {
     let options = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+this.token,
+        'Authorization': 'Bearer '+token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };

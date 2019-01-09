@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { VerReclamoPage } from '../ver-reclamo/ver-reclamo';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 /**
  * Generated class for the HomePage page.
@@ -24,15 +25,18 @@ export class HomePage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    public apiService: ApiRestV1Provider) {
+    public apiService: ApiRestV1Provider,
+    private localStorage: LocalStorageProvider) {
       this.getReclamos();
   }
 
   getReclamos(): void {
-    this.cargando_reclamos = true;
-    this.apiService.getReclamos().subscribe(data => {
-      this.reclamos = data;
-      this.cargando_reclamos = false;
+    this.localStorage.getData('auth_token').then((token) => {
+      this.cargando_reclamos = true;
+      this.apiService.getReclamos(token).subscribe(data => {
+        this.reclamos = data;
+        this.cargando_reclamos = false;
+      });
     });
   }
 

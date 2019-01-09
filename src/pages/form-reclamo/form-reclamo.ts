@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TipoReclamo } from '../../models/TipoReclamo';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 /**
  * Generated class for the FormReclamoPage page.
@@ -26,7 +27,8 @@ export class FormReclamoPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public apiService: ApiRestV1Provider) {
+    public apiService: ApiRestV1Provider,
+    private localStorage: LocalStorageProvider) {
     this.selectedItem = this.navParams.get('item');
     this.getTiposReclamo();
     if (this.selectedItem) {
@@ -39,11 +41,12 @@ export class FormReclamoPage {
     }
   }
 
-  getTiposReclamo() {
-    this.apiService.getTiposReclamo()
-      .subscribe(
-        tipos_reclamo => this.tipos_reclamo = tipos_reclamo
-      );
+  getTiposReclamo(): void {
+    this.localStorage.getData('auth_token').then((token) => {
+      this.apiService.getTiposReclamo(token).subscribe(data => {
+        this.tipos_reclamo = data;
+      });
+    });
   }
 
   guardar(): void {
@@ -55,19 +58,21 @@ export class FormReclamoPage {
   }
 
   nuevoReclamo() {
-    this.apiService.createReclamo(this.reclamo)
-    .subscribe(data => {
-      this.reclamo = data;
-      this.navCtrl.pop();
-    });      
+    this.localStorage.getData('auth_token').then((token) => {
+      this.apiService.createReclamo(this.reclamo, token).subscribe(data => {
+        this.reclamo = data;
+        this.navCtrl.pop();
+      });      
+    });
   }
 
   modificarReclamo() {
-    this.apiService.updateReclamo(this.reclamo)
-    .subscribe(data => {
-      this.reclamo = data;
-      this.navCtrl.pop();
-    });      
+    this.localStorage.getData('auth_token').then((token) => {
+      this.apiService.updateReclamo(this.reclamo, token).subscribe(data => {
+        this.reclamo = data;
+        this.navCtrl.pop();
+      });      
+    });
   }
 
   ionViewDidLoad() {
