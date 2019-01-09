@@ -18,13 +18,46 @@
 
 <ion-content padding>
 
-  <ion-list *ngIf="!cargando_reclamos; else cargandoReclamos">
+  <ion-list *ngIf="!cargando_reclamos; else cargandoReclamos">    
     <button ion-item *ngFor="let item of reclamos" (click)="itemTapped($event, item)">
-      <ion-icon [name]="'person'" item-start></ion-icon>
-        <div class="item-note" item-end>
-          {{item.titulo}}, {{item.descripcion}}
-        </div>
+    <ion-card>
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="assets/imgs/logot.png">
+          </ion-avatar>
+          <h2>Marty McFly</h2>
+          <p>{{item.fecha | date: 'dd/MM/yyyy'}}</p>
+        </ion-item>
+      
+        <img src="{{item.imagen.url}}"/>
+      
+        <ion-card-content>
+          <p>{{item.descripcion}}</p>
+        </ion-card-content>
+      
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="thumbs-up"></ion-icon>
+              <div>12 Likes</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="text"></ion-icon>
+              <div>4 Comments</div>
+            </button>
+          </ion-col>
+          <ion-col center text-center>
+            <ion-note>
+              11h ago
+            </ion-note>
+          </ion-col>
+        </ion-row>
+      
+      </ion-card>
       </button>
-  </ion-list>    
+  </ion-list>
 
 </ion-content>

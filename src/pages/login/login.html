@@ -14,8 +14,11 @@
 
 
 <ion-content padding>
-  <!-- dimensions set using attributes -->
-  <ion-img id="logo-login" width="80" height="80" src="assets/imgs/logot.png"></ion-img>
+  <ion-row>
+    <ion-col text-center>
+      <ion-img id="logo-login" width="80" height="80" src="assets/imgs/logot.png"></ion-img>
+    </ion-col>
+  </ion-row>  
   <ion-item class="item-login">
     <ion-label color="primary" floating>Email</ion-label>
     <ion-input [(ngModel)]="user.email" type="text"></ion-input>
