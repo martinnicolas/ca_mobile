@@ -31,9 +31,9 @@ export class HomePage {
   }
 
   getReclamos(): void {
-    this.localStorage.getData('auth_token').then((token) => {
+    this.localStorage.getData('auth_data').then((auth_data) => {
       this.cargando_reclamos = true;
-      this.apiService.getReclamos(token).subscribe(data => {
+      this.apiService.getReclamos(auth_data.auth_token).subscribe(data => {
         this.reclamos = data;
         this.cargando_reclamos = false;
       });

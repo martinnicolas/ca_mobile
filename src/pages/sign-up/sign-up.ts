@@ -35,7 +35,7 @@ export class SignUpPage {
     this.apiService.signup(this.user)
     .subscribe(data => {
       this.auth_data = data;
-      this.localStorage.setData('auth_token', this.auth_data.auth_token);
+      this.localStorage.setData('auth_data', this.auth_data);
       this.navCtrl.push(MainPage);
       console.log("Login");
     });      

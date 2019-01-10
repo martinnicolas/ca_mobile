@@ -28,8 +28,8 @@
             <ion-avatar item-start>
               <img src="assets/imgs/logot.png">
             </ion-avatar>
-            <h2>Marty McFly</h2>
-            <p>November 5, 1955</p>
+            <h2>{{item.user.email}}</h2>
+            <p>{{item.fecha | date: 'dd/MM/yyyy'}}</p>
           </ion-item>
         
           <img src="{{item.imagen.url}}"/>

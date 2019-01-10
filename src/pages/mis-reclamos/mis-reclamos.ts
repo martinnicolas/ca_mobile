@@ -28,13 +28,13 @@ export class MisReclamosPage {
     public navParams: NavParams,
     public apiService: ApiRestV1Provider,
     private localStorage: LocalStorageProvider) {
-      this.getReclamos();
+      this.getMisReclamos();
   }
 
-  getReclamos(): void {
-    this.localStorage.getData('auth_token').then((token) => {
+  getMisReclamos(): void {
+    this.localStorage.getData('auth_data').then((auth_data) => {
       this.cargando_reclamos = true;
-      this.apiService.getReclamos(token).subscribe(data => {
+      this.apiService.getReclamosUser(auth_data.user, auth_data.auth_token).subscribe(data => {
         this.reclamos = data;
         this.cargando_reclamos = false;
       });
