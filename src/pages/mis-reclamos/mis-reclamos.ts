@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { VerReclamoPage } from '../ver-reclamo/ver-reclamo';
@@ -22,21 +22,26 @@ export class MisReclamosPage {
 
   cargando_reclamos: boolean;
   reclamos: Reclamo[];
+  loader: any;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public apiService: ApiRestV1Provider,
-    private localStorage: LocalStorageProvider) {
+    private localStorage: LocalStorageProvider,
+    public loadingCtrl: LoadingController) {
       this.getMisReclamos();
   }
 
   getMisReclamos(): void {
     this.localStorage.getData('auth_data').then((auth_data) => {
       this.cargando_reclamos = true;
-      this.apiService.getReclamosUser(auth_data.user, auth_data.auth_token).subscribe(data => {
+      this.createLoading();
+      this.loader.present();
+      this.apiService.getReclamosUser(auth_data.auth_token).subscribe(data => {
         this.reclamos = data;
         this.cargando_reclamos = false;
+        this.loader.dismiss();
       });
     });
   }
@@ -49,6 +54,27 @@ export class MisReclamosPage {
     this.navCtrl.push(VerReclamoPage, {
       item: item
     });
+  }
+
+  createLoading() {
+    this.loader = this.loadingCtrl.create({
+      content: "Por favor espere...",
+    });
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.getMisReclamos();
+
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.reclamos = this.reclamos.filter((item) => {
+        return (item.titulo.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
   }
 
   ionViewDidLoad() {

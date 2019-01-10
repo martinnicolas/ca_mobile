@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { VerReclamoPage } from '../ver-reclamo/ver-reclamo';
@@ -21,21 +21,26 @@ export class HomePage {
 
   reclamos: Reclamo[];
   cargando_reclamos: boolean;
+  loader: any;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public apiService: ApiRestV1Provider,
-    private localStorage: LocalStorageProvider) {
+    private localStorage: LocalStorageProvider,
+    public loadingCtrl: LoadingController) {
       this.getReclamos();
   }
 
   getReclamos(): void {
     this.localStorage.getData('auth_data').then((auth_data) => {
+      this.createLoading();
+      this.loader.present();
       this.cargando_reclamos = true;
       this.apiService.getReclamos(auth_data.auth_token).subscribe(data => {
         this.reclamos = data;
         this.cargando_reclamos = false;
+        this.loader.dismiss();
       });
     });
   }
@@ -43,6 +48,12 @@ export class HomePage {
   itemTapped(event, item) {
     this.navCtrl.push(VerReclamoPage, {
       item: item
+    });
+  }
+
+  createLoading() {
+    this.loader = this.loadingCtrl.create({
+      content: "Por favor espere...",
     });
   }
 

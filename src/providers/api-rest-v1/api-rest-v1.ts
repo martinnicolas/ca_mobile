@@ -20,7 +20,7 @@ export class ApiRestV1Provider extends BaseProvider{
   private apiName = 'api_restv1'
 
   //Resource
-  private resource = `${this.baseURL}/api_restv1`;
+  private resource = `${this.baseURL}/${this.apiName}`;
 
 
   constructor(
@@ -56,17 +56,17 @@ export class ApiRestV1Provider extends BaseProvider{
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
-    return this.http.get<Reclamo[]>(`${this.resource}/reclamos`, options);
+    return this.http.get<Reclamo[]>(`${this.resource}/index`, options);
   }
 
-  getReclamosUser(user: User, token: string): Observable<Reclamo[]> {
+  getReclamosUser(token: string): Observable<Reclamo[]> {
     let options = {
       headers: new HttpHeaders({
         'Authorization': 'Bearer '+token,
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
-    return this.http.get<Reclamo[]>(`${this.resource}/users/${user.id}/reclamos`, options);
+    return this.http.get<Reclamo[]>(`${this.resource}/reclamos`, options);
   }
 
   getTiposReclamo(token: string): Observable<TipoReclamo[]> {
