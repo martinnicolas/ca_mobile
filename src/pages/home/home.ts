@@ -45,10 +45,19 @@ export class HomePage {
     });
   }
 
-  itemTapped(event, item) {
+  verReclamo(event, item) {
     this.navCtrl.push(VerReclamoPage, {
       item: item
     });
+  }
+
+  valorarReclamo(event, item) {
+    this.localStorage.getData('auth_data').then((auth_data) => {
+      this.apiService.valorarReclamo(item, auth_data.user, auth_data.auth_token).
+      subscribe(data => {
+        //Agregar messages
+      });
+    });            
   }
 
   createLoading() {

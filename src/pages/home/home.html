@@ -42,13 +42,13 @@
         
         <ion-row>
           <ion-col>
-            <button ion-button icon-start small block color="secondary">
+            <button ion-button icon-start small block color="secondary" (click)="valorarReclamo($event, item)">
               <ion-icon name="thumbs-up"></ion-icon>
               <div>12</div>
             </button>
           </ion-col>
           <ion-col>
-            <button ion-button icon-end small block (click)="itemTapped($event, item)">
+            <button ion-button icon-end small block (click)="verReclamo($event, item)">
               <ion-icon name="search"></ion-icon>            
               <div>Ver</div>
             </button>

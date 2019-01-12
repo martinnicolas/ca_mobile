@@ -19,30 +19,39 @@
       <button (click)="openMenu()" ion-fab><ion-icon [name]="'more'"></ion-icon></button>
     </ion-fab>
     <ion-list>
-      <ion-card>
-
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="assets/imgs/logot.png">
-            </ion-avatar>
-            <h2>{{selectedItem.user.email}}</h2>
-            <p>{{selectedItem.fecha | date: 'dd/MM/yyyy'}}</p>
-          </ion-item>
-        
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/imgs/logot.png">
+        </ion-avatar>
+        <h2>{{selectedItem.user.email}}</h2>
+        <p>{{selectedItem.fecha | date: 'dd/MM/yyyy'}}</p>
+      </ion-item>
+      
+      <ion-item>
+        <ion-card>
           <img src="{{selectedItem.imagen.url}}"/>
+          <ion-fab right top>
+            <button ion-fab>
+              <ion-icon name="pin"></ion-icon>
+            </button>
+          </ion-fab>
+        </ion-card>        
+      </ion-item>
         
-          <ion-card-content>
-            <ion-card-title>
-              {{selectedItem.titulo}} 
-              <ion-badge item-end color="secondary">
-                <ion-icon name="thumbs-up"></ion-icon> 12
-              </ion-badge>
-            </ion-card-title>
-            <p>
-              {{selectedItem.descripcion}}
-            </p>
-          </ion-card-content>      
-      </ion-card>
+      <ion-item>
+        <h2>
+          {{selectedItem.titulo}} 
+          <ion-badge item-end color="secondary">
+            <ion-icon name="thumbs-up"></ion-icon> 12
+          </ion-badge>
+        </h2>
+      </ion-item>      
+
+      <ion-item text-wrap> 
+        <p>
+          {{selectedItem.descripcion}}
+        </p>
+      </ion-item>
     </ion-list> 
   </div>
 </ion-content>

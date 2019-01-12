@@ -4,6 +4,7 @@ import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { FormReclamoPage } from '../form-reclamo/form-reclamo';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { User } from '../../models/User';
 
 /**
  * Generated class for the VerReclamoPage page.
@@ -21,6 +22,7 @@ export class VerReclamoPage {
 
   selectedItem: any;
   reclamo: Reclamo;
+  user: User;
 
   constructor(
     public navCtrl: NavController, 
@@ -30,6 +32,9 @@ export class VerReclamoPage {
     public apiService: ApiRestV1Provider,
     private localStorage: LocalStorageProvider) {
       this.selectedItem = this.navParams.get('item');
+      this.localStorage.getData('auth_data').then((auth_data) => {
+        this.user = auth_data.user;
+      });
   }
 
   openMenu() {
@@ -37,6 +42,18 @@ export class VerReclamoPage {
       title: 'Acciones sobre este reclamo',
       buttons: [
         {
+          text: 'Me gusta',
+          icon: 'thumbs-up',
+          handler: () => {
+            console.log('click Me gusta');
+            this.localStorage.getData('auth_data').then((auth_data) => {
+              this.apiService.valorarReclamo(this.selectedItem, auth_data.user, auth_data.auth_token).
+              subscribe(data => {
+                //Agregar messages
+              });
+            });            
+          }
+        },{
           text: 'Editar',
           icon: 'create',
           handler: () => {
@@ -69,7 +86,7 @@ export class VerReclamoPage {
   showConfirm(reclamo: Reclamo) {
     const confirm = this.alertCtrl.create({
       title: 'Atención',
-      message: 'Desea eliminar esta persona?',
+      message: 'Quiere eliminar este reclamo?',
       buttons: [
         {
           text: 'Cancelar',
@@ -90,8 +107,8 @@ export class VerReclamoPage {
   }
 
   eliminarReclamo(reclamo: Reclamo): void {
-    this.localStorage.getData('auth_token').then((token) => {
-      this.apiService.deleteReclamo(reclamo, token).
+    this.localStorage.getData('auth_data').then((auth_data) => {
+      this.apiService.deleteReclamo(reclamo, auth_data.token).
       subscribe(data => {
         this.navCtrl.pop();
       });

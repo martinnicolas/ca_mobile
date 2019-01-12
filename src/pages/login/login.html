@@ -27,10 +27,10 @@
     <ion-label color="primary" floating>Clave</ion-label>
     <ion-input [(ngModel)]="user.password" type="password"></ion-input>
   </ion-item>
-  <button ion-button block (click)="signin()">
+  <button ion-button block color="secondary" (click)="signin()">
     Ingresar
   </button>
-  <button ion-button block color="secondary" (click)="signup()">
+  <button ion-button block (click)="signup()">
     Registrarse
   </button>
 </ion-content>

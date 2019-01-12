@@ -42,8 +42,8 @@ export class FormReclamoPage {
   }
 
   getTiposReclamo(): void {
-    this.localStorage.getData('auth_token').then((token) => {
-      this.apiService.getTiposReclamo(token).subscribe(data => {
+    this.localStorage.getData('auth_data').then((auth_data) => {
+      this.apiService.getTiposReclamo(auth_data.auth_token).subscribe(data => {
         this.tipos_reclamo = data;
       });
     });
@@ -58,8 +58,8 @@ export class FormReclamoPage {
   }
 
   nuevoReclamo() {
-    this.localStorage.getData('auth_token').then((token) => {
-      this.apiService.createReclamo(this.reclamo, token).subscribe(data => {
+    this.localStorage.getData('auth_data').then((auth_data) => {
+      this.apiService.createReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
         this.reclamo = data;
         this.navCtrl.pop();
       });      
@@ -67,8 +67,8 @@ export class FormReclamoPage {
   }
 
   modificarReclamo() {
-    this.localStorage.getData('auth_token').then((token) => {
-      this.apiService.updateReclamo(this.reclamo, token).subscribe(data => {
+    this.localStorage.getData('auth_data').then((auth_data) => {
+      this.apiService.updateReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
         this.reclamo = data;
         this.navCtrl.pop();
       });      

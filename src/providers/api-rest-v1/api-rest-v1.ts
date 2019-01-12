@@ -117,4 +117,17 @@ export class ApiRestV1Provider extends BaseProvider{
     return this.http.delete<Reclamo>(`${this.resource}/reclamos/${reclamo.id}`, options);
   }
 
+  valorarReclamo(reclamo: Reclamo, user: User, token: string) {
+    let options = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer '+token,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+    let params = new URLSearchParams();
+    params.set('reclamo_id', reclamo.id.toString());
+    params.set('user_id', user.id.toString());
+    return this.http.post<Reclamo>(`${this.resource}/reclamos/${reclamo.id}/valorar`, params.toString(), options);
+  }
+
 }

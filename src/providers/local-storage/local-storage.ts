@@ -19,8 +19,8 @@ export class LocalStorageProvider {
       
   }
 
-  async getData(key: string) {
-    return await this.storage.get(key);
+  getData(key: string) {
+    return this.storage.get(key);
   }
 
   setData(key: string, value: any) {
