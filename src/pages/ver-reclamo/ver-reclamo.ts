@@ -51,7 +51,7 @@ export class VerReclamoPage {
               subscribe(data => {
                 //Agregar messages
               });
-            });            
+            });
           }
         },{
           text: 'Editar',
@@ -108,11 +108,15 @@ export class VerReclamoPage {
 
   eliminarReclamo(reclamo: Reclamo): void {
     this.localStorage.getData('auth_data').then((auth_data) => {
-      this.apiService.deleteReclamo(reclamo, auth_data.token).
+      this.apiService.deleteReclamo(reclamo, auth_data.auth_token).
       subscribe(data => {
         this.navCtrl.pop();
       });
     });
+  }
+
+  mostrarMapa() {
+    console.log("Mostrar mapa");
   }
 
   ionViewDidLoad() {

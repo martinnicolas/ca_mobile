@@ -20,7 +20,6 @@ import { LocalStorageProvider } from '../../providers/local-storage/local-storag
 })
 export class MisReclamosPage {
 
-  cargando_reclamos: boolean;
   reclamos: Reclamo[];
   loader: any;
 
@@ -35,12 +34,10 @@ export class MisReclamosPage {
 
   getMisReclamos(): void {
     this.localStorage.getData('auth_data').then((auth_data) => {
-      this.cargando_reclamos = true;
       this.createLoading();
       this.loader.present();
       this.apiService.getReclamosUser(auth_data.auth_token).subscribe(data => {
         this.reclamos = data;
-        this.cargando_reclamos = false;
         this.loader.dismiss();
       });
     });

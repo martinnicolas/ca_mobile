@@ -20,7 +20,6 @@ import { LocalStorageProvider } from '../../providers/local-storage/local-storag
 export class HomePage {
 
   reclamos: Reclamo[];
-  cargando_reclamos: boolean;
   loader: any;
 
   constructor(
@@ -36,10 +35,8 @@ export class HomePage {
     this.localStorage.getData('auth_data').then((auth_data) => {
       this.createLoading();
       this.loader.present();
-      this.cargando_reclamos = true;
       this.apiService.getReclamos(auth_data.auth_token).subscribe(data => {
         this.reclamos = data;
-        this.cargando_reclamos = false;
         this.loader.dismiss();
       });
     });
