@@ -15,7 +15,12 @@
 
 <ion-content padding>
   <ion-fab bottom right>
-    <button (click)="openMenu()" ion-fab><ion-icon [name]="'more'"></ion-icon></button>
+    <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab (click)="eliminar()"><ion-icon name="trash"></ion-icon></button>
+      <button ion-fab (click)="editar()"><ion-icon name="create"></ion-icon></button>
+      <button ion-fab (click)="valorar()"><ion-icon name="thumbs-up"></ion-icon></button>
+    </ion-fab-list>
   </ion-fab>
   <ion-list *ngIf="selectedItem">
       <ion-item>

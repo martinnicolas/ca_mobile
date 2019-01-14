@@ -38,50 +38,26 @@ export class VerReclamoPage {
       });
   }
 
-  openMenu() {
-    const actionSheet = this.actionSheetCtrl.create({
-      title: 'Acciones sobre este reclamo',
-      buttons: [
-        {
-          text: 'Me gusta',
-          icon: 'thumbs-up',
-          handler: () => {
-            console.log('click Me gusta');
-            this.localStorage.getData('auth_data').then((auth_data) => {
-              this.apiService.valorarReclamo(this.selectedItem, auth_data.user, auth_data.auth_token).
-              subscribe(data => {
-                //Agregar messages
-              });
-            });
-          }
-        },{
-          text: 'Editar',
-          icon: 'create',
-          handler: () => {
-            console.log('click Editar');
-            this.navCtrl.push(FormReclamoPage, {
-              item: this.selectedItem
-            });
-          }
-        },{
-          text: 'Eliminar',
-          role: 'destructive',
-          icon: 'trash',
-          handler: () => {
-            console.log('click Eliminar');
-            this.showConfirm(this.selectedItem);
-          }
-        },{
-          text: 'Cancelar',
-          role: 'cancel',
-          icon: 'close',
-          handler: () => {
-            console.log('click Cancelar');
-          }
-        }
-      ]
+  valorar() {
+    console.log('click Me gusta');
+    this.localStorage.getData('auth_data').then((auth_data) => {
+      this.apiService.valorarReclamo(this.selectedItem, auth_data.user, auth_data.auth_token).
+      subscribe(data => {
+        //Agregar messages
+      });
     });
-    actionSheet.present();
+  }
+
+  editar() {
+    console.log('click Editar');
+    this.navCtrl.push(FormReclamoPage, {
+      item: this.selectedItem
+    });    
+  }
+
+  eliminar() {
+    console.log('click Eliminar');
+    this.showConfirm(this.selectedItem);
   }
 
   showConfirm(reclamo: Reclamo) {
