@@ -5,6 +5,7 @@ import { Reclamo } from '../../models/Reclamo';
 import { FormReclamoPage } from '../form-reclamo/form-reclamo';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { User } from '../../models/User';
+import { VerUbicacionPage } from '../ver-ubicacion/ver-ubicacion';
 
 /**
  * Generated class for the VerReclamoPage page.
@@ -115,8 +116,10 @@ export class VerReclamoPage {
     });
   }
 
-  mostrarMapa() {
-    console.log("Mostrar mapa");
+  verUbicacion() {
+    this.navCtrl.push(VerUbicacionPage, {
+      item: this.selectedItem
+    });
   }
 
   ionViewDidLoad() {

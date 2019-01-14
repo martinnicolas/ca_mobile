@@ -16,6 +16,7 @@ import { VerReclamoPage } from '../pages/ver-reclamo/ver-reclamo';
 import { FormReclamoPage } from '../pages/form-reclamo/form-reclamo';
 import { IonicStorageModule } from '@ionic/storage';
 import { LocalStorageProvider } from '../providers/local-storage/local-storage';
+import { VerUbicacionPage } from '../pages/ver-ubicacion/ver-ubicacion';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LocalStorageProvider } from '../providers/local-storage/local-storage';
     HomePage,
     MisReclamosPage,
     FormReclamoPage,
-    VerReclamoPage
+    VerReclamoPage,
+    VerUbicacionPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { LocalStorageProvider } from '../providers/local-storage/local-storage';
     HomePage,
     MisReclamosPage,
     FormReclamoPage,
-    VerReclamoPage
+    VerReclamoPage,
+    VerUbicacionPage
   ],
   providers: [
     StatusBar,
