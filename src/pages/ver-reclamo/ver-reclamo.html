@@ -17,9 +17,9 @@
   <ion-fab bottom right>
     <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>
     <ion-fab-list side="left">
-      <button ion-fab (click)="eliminar()"><ion-icon name="trash"></ion-icon></button>
-      <button ion-fab (click)="editar()"><ion-icon name="create"></ion-icon></button>
-      <button ion-fab (click)="valorar()"><ion-icon name="thumbs-up"></ion-icon></button>
+      <button ion-fab color="danger" (click)="eliminar()"><ion-icon name="trash"></ion-icon></button>
+      <button ion-fab color="primary" (click)="editar()"><ion-icon name="create"></ion-icon></button>
+      <button ion-fab color="secondary" (click)="valorar()"><ion-icon name="thumbs-up"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
   <ion-list *ngIf="selectedItem">
@@ -41,7 +41,7 @@
           </ion-fab>
         </ion-card>
         <ion-row justify-content-center>
-          <ion-badge item-end color="secondary">
+          <ion-badge>
             <ion-icon name="thumbs-up"></ion-icon> 12
           </ion-badge>     
         </ion-row>        

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { VerReclamoPage } from '../ver-reclamo/ver-reclamo';
@@ -21,13 +21,15 @@ export class HomePage {
 
   reclamos: Reclamo[];
   loader: any;
+  toast: any;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public apiService: ApiRestV1Provider,
     private localStorage: LocalStorageProvider,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController) {
       this.getReclamos();
   }
 
@@ -50,11 +52,28 @@ export class HomePage {
 
   valorarReclamo(event, item) {
     this.localStorage.getData('auth_data').then((auth_data) => {
+      this.createToast();
       this.apiService.valorarReclamo(item, auth_data.user, auth_data.auth_token).
       subscribe(data => {
-        //Agregar messages
+        //messages ok    
+        this.toast.setMessage('Apoyaste este reclamo!');
+        this.toast.present();
+      }, error => {
+        //messages error
+        this.toast.setMessage('Ocurrio un error.');
+        this.toast.present();
       });
     });            
+  }
+
+  createToast() {
+    this.toast = this.toastCtrl.create({
+      message: 'Ocurrion un error!',
+      duration: 3000,
+      position: 'top',
+      showCloseButton: true,
+      closeButtonText: 'Cerrar'
+    });
   }
 
   createLoading() {

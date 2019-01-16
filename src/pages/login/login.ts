@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { MainPage } from '../main/main';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { User } from '../../models/User';
@@ -23,12 +23,14 @@ export class LoginPage {
 
   auth_data: AuthData;
   user: User;
+  toast: any;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public apiService: ApiRestV1Provider,
-    private localStorage: LocalStorageProvider) {
+    private localStorage: LocalStorageProvider,
+    public toastCtrl: ToastController) {
       this.auth_data = new AuthData();
       this.user = new User();
   }
@@ -40,6 +42,21 @@ export class LoginPage {
       this.localStorage.setData('auth_data', this.auth_data);
       this.navCtrl.push(MainPage);
       console.log("Login");
+    }, error => {
+      //messages error
+      this.createToast();
+      this.toast.setMessage('Usuario o clave incorrectas.');
+      this.toast.present();
+    });
+  }
+
+  createToast() {
+    this.toast = this.toastCtrl.create({
+      message: 'Ocurrion un error!',
+      duration: 3000,
+      position: 'top',
+      showCloseButton: true,
+      closeButtonText: 'Cerrar'
     });
   }
 

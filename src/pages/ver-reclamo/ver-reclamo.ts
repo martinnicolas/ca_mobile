@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, AlertController, ToastController } from 'ionic-angular';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { FormReclamoPage } from '../form-reclamo/form-reclamo';
@@ -22,6 +22,7 @@ import { VerUbicacionPage } from '../ver-ubicacion/ver-ubicacion';
 export class VerReclamoPage {
 
   selectedItem: any;
+  toast: any;
   reclamo: Reclamo;
   user: User;
 
@@ -31,7 +32,8 @@ export class VerReclamoPage {
     public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController,
     public apiService: ApiRestV1Provider,
-    private localStorage: LocalStorageProvider) {
+    private localStorage: LocalStorageProvider,
+    public toastCtrl: ToastController) {
       this.selectedItem = this.navParams.get('item');
       this.localStorage.getData('auth_data').then((auth_data) => {
         this.user = auth_data.user;
@@ -41,10 +43,27 @@ export class VerReclamoPage {
   valorar() {
     console.log('click Me gusta');
     this.localStorage.getData('auth_data').then((auth_data) => {
+      this.createToast();
       this.apiService.valorarReclamo(this.selectedItem, auth_data.user, auth_data.auth_token).
       subscribe(data => {
-        //Agregar messages
+        //messages ok    
+        this.toast.setMessage('Apoyaste este reclamo!');
+        this.toast.present();
+      }, error => {
+        //messages error
+        this.toast.setMessage('Ocurrio un error.');
+        this.toast.present();
       });
+    });
+  }
+
+  createToast() {
+    this.toast = this.toastCtrl.create({
+      message: 'Ocurrion un error!',
+      duration: 3000,
+      position: 'top',
+      showCloseButton: true,
+      closeButtonText: 'Cerrar'
     });
   }
 
@@ -88,6 +107,10 @@ export class VerReclamoPage {
       this.apiService.deleteReclamo(reclamo, auth_data.auth_token).
       subscribe(data => {
         this.navCtrl.pop();
+      }, error => {
+        this.createToast();
+        this.toast.setMessage('Ocurrio un error');
+        this.toast.dismiss();
       });
     });
   }
