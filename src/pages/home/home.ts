@@ -78,7 +78,7 @@ export class HomePage {
 
   createLoading() {
     this.loader = this.loadingCtrl.create({
-      content: "Por favor espere...",
+      content: "Cargando reclamos...",
     });
   }
 

@@ -55,7 +55,7 @@ export class MisReclamosPage {
 
   createLoading() {
     this.loader = this.loadingCtrl.create({
-      content: "Por favor espere...",
+      content: "Cargando reclamos...",
     });
   }
 
