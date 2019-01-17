@@ -32,19 +32,21 @@
         <img src="{{item.imagen.url}}"/>
       
         <ion-card-content>
-          <ion-card-title>
+          <ion-card-title text-center>
             {{item.titulo}}
           </ion-card-title>
-          <p>
-            {{item.descripcion}}
-          </p>
+          <ion-row justify-content-center>
+            <ion-badge>
+              <ion-icon name="thumbs-up"></ion-icon> 12
+            </ion-badge>     
+          </ion-row>  
         </ion-card-content>
         
         <ion-row>
           <ion-col>
             <button ion-button icon-start small block color="secondary" (click)="valorarReclamo($event, item)">
               <ion-icon name="thumbs-up"></ion-icon>
-              <div>12</div>
+              <div>Apoyar</div>
             </button>
           </ion-col>
           <ion-col>
