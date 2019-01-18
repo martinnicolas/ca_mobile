@@ -19,13 +19,13 @@ export class MainPage {
 
   @ViewChild(Nav) nav: Nav;
   rootPage: any = HomePage;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{icon: string, title: string, component: any}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Mis Reclamos', component: MisReclamosPage }
+      { icon: 'home', title: 'Home', component: HomePage },
+      { icon: 'pin', title: 'Mis Reclamos', component: MisReclamosPage }
     ];
   }
 

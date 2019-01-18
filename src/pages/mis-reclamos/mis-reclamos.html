@@ -20,7 +20,7 @@
   <ion-fab bottom right>
     <button (click)="nuevoReclamo()" ion-fab><ion-icon [name]="'add'"></ion-icon></button>
   </ion-fab>
-  <ion-searchbar placeholder="Buscar" show-cancel="true" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar placeholder="Buscar" (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
     <ion-item class="item-reclamo" *ngFor="let item of reclamos" text-wrap>
       <ion-thumbnail item-start>
