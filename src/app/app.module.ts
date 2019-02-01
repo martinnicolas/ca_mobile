@@ -33,6 +33,7 @@ import { VerUbicacionPage } from '../pages/ver-ubicacion/ver-ubicacion';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, {
+      scrollAssist: false, autoFocusAssist: false,
       monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       monthShortNames: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
       dayNames: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo' ],
