@@ -60,18 +60,24 @@ export class MisReclamosPage {
   }
 
   getItems(ev: any) {
-    // Reset items back to all of the items
-    this.getMisReclamos();
+    this.localStorage.getData('auth_data').then((auth_data) => {
+      this.createLoading();
+      this.loader.present();
+      this.apiService.getReclamosUser(auth_data.auth_token).subscribe(data => {
+        // set val to the value of the searchbar
+        const val = ev.target.value;
 
-    // set val to the value of the searchbar
-    const val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.reclamos = this.reclamos.filter((item) => {
-        return (item.titulo.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
+        // if the value is an empty string don't filter the items
+        if (val && val.trim() != '') {
+          this.reclamos = data.filter((item) => {
+            return (item.titulo.toLowerCase().indexOf(val.toLowerCase()) > -1);
+          })
+        } else {
+          this.reclamos = data;
+        }
+        this.loader.dismiss();
+      });
+    });
   }
 
   ionViewDidLoad() {

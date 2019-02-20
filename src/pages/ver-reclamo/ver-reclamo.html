@@ -17,8 +17,8 @@
   <ion-fab bottom right>
     <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>
     <ion-fab-list side="left">
-      <button ion-fab color="danger" (click)="eliminar()"><ion-icon name="trash"></ion-icon></button>
-      <button ion-fab color="primary" (click)="editar()"><ion-icon name="create"></ion-icon></button>
+      <button *ngIf="user?.id === selectedItem.user.id" ion-fab color="danger" (click)="eliminar()"><ion-icon name="trash"></ion-icon></button>
+      <button *ngIf="user?.id === selectedItem.user.id" ion-fab color="primary" (click)="editar()"><ion-icon name="create"></ion-icon></button>
       <button ion-fab color="secondary" (click)="valorar()"><ion-icon name="thumbs-up"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
