@@ -36,7 +36,7 @@ export class FormReclamoPage {
     this.selectedItem = this.navParams.get('item');
     this.getTiposReclamo();
     if (this.selectedItem) {
-      this.reclamo = this.selectedItem;
+      this.reclamo = Object.assign({}, this.selectedItem);
       this.titulo = 'Editar reclamo';
     } else {
       this.titulo = 'Nuevo reclamo';
