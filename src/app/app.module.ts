@@ -17,6 +17,7 @@ import { FormReclamoPage } from '../pages/form-reclamo/form-reclamo';
 import { IonicStorageModule } from '@ionic/storage';
 import { LocalStorageProvider } from '../providers/local-storage/local-storage';
 import { VerUbicacionPage } from '../pages/ver-ubicacion/ver-ubicacion';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { VerUbicacionPage } from '../pages/ver-ubicacion/ver-ubicacion';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ApiRestV1Provider,
     LocalStorageProvider,
+    Geolocation
   ]
 })
 export class AppModule {}

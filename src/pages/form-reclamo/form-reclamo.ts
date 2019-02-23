@@ -5,6 +5,7 @@ import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { initDomAdapter } from '@angular/platform-browser/src/browser';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the FormReclamoPage page.
@@ -19,7 +20,7 @@ import { initDomAdapter } from '@angular/platform-browser/src/browser';
   templateUrl: 'form-reclamo.html',
 })
 export class FormReclamoPage {
-  
+
   selectedItem: any;
   titulo: string;
   reclamo: Reclamo;
@@ -29,20 +30,18 @@ export class FormReclamoPage {
   markersArray = [];
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public apiService: ApiRestV1Provider,
-    private localStorage: LocalStorageProvider) {
+    private localStorage: LocalStorageProvider,
+    private geolocation: Geolocation) {
     this.selectedItem = this.navParams.get('item');
-    this.getTiposReclamo();
     if (this.selectedItem) {
       this.reclamo = Object.assign({}, this.selectedItem);
-      this.titulo = 'Editar reclamo';
     } else {
-      this.titulo = 'Nuevo reclamo';
       this.reclamo = new Reclamo();
-      this.reclamo.tipo_reclamo = new TipoReclamo();
     }
+    this.getTiposReclamo();
   }
 
   getTiposReclamo(): void {
@@ -56,9 +55,9 @@ export class FormReclamoPage {
   guardar(): void {
     if (!this.reclamo.id) {
       this.nuevoReclamo();
-    }else {
+    } else {
       this.modificarReclamo();
-    }    
+    }
   }
 
   nuevoReclamo() {
@@ -66,7 +65,7 @@ export class FormReclamoPage {
       this.apiService.createReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
         this.reclamo = data;
         this.navCtrl.pop();
-      });      
+      });
     });
   }
 
@@ -75,35 +74,31 @@ export class FormReclamoPage {
       this.apiService.updateReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
         this.reclamo = data;
         this.navCtrl.pop();
-      });      
+      });
     });
   }
 
   initMap() {
-    let coords;
     if (this.selectedItem) {
-      coords = new google.maps.LatLng(this.selectedItem.ubicacion.latitud, this.selectedItem.ubicacion.longitud);      
+      this.getReclamoLocationMap();
     } else {
-      //Obtengo ubicacion del usuario
-      coords = new google.maps.LatLng(-43.296344, -65.091966);
+      this.getCurrentLocationMap();
     }
-    
+  }
+
+  getReclamoLocationMap() {
+    const coords = new google.maps.LatLng(this.selectedItem.ubicacion.latitud, this.selectedItem.ubicacion.longitud);
     let mapOptions: google.maps.MapOptions = {
       center: coords,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-    if (this.selectedItem) {
-      let marker: google.maps.Marker = new google.maps.Marker({
-        map: this.map,
-        draggable: true,
-        position: coords
-      });
-    }
-
+    let marker: google.maps.Marker = new google.maps.Marker({
+      map: this.map,
+      draggable: true,
+      position: coords
+    });
     // add a click event handler to the map object
     google.maps.event.addListener(this.map, "click", (event) => {
       // place a marker
@@ -111,16 +106,34 @@ export class FormReclamoPage {
     });
   }
 
+  getCurrentLocationMap() {
+    //Obtengo ubicacion del usuario
+    this.geolocation.getCurrentPosition().then((resp) => {
+      const coords = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+      let mapOptions: google.maps.MapOptions = {
+        center: coords,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      // add a click event handler to the map object
+      google.maps.event.addListener(this.map, "click", (event) => {
+        // place a marker
+        this.placeMarker(event.latLng);
+      });
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+  }
+
   placeMarker(location) {
     // first remove all markers if there are any
     this.deleteOverlays();
-
     var marker = new google.maps.Marker({
       position: location,
       draggable: true,
       map: this.map
     });
-
     // add marker in markers array
     this.markersArray.push(marker);
   }
