@@ -17,7 +17,7 @@
   <div #map id="map"></div>
   <ion-item class="item-form">
     <ion-label color="primary" floating>Tipo de reclamo</ion-label>
-    <ion-select [(ngModel)]="reclamo.tipo_reclamo_id" okText="Aceptar" cancelText="Cancelar">
+    <ion-select [(ngModel)]="reclamo.tipo_reclamo.id" okText="Aceptar" cancelText="Cancelar">
       <ion-option *ngFor="let item of tipos_reclamo" [value]="item.id">{{item.nombre}}</ion-option>        
     </ion-select>
   </ion-item>

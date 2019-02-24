@@ -87,9 +87,12 @@ export class ApiRestV1Provider extends BaseProvider{
       })
     };
     let params = new URLSearchParams();
-    params.set('tipo_reclamo_id', reclamo.tipo_reclamo_id.toString());
+    params.set('tipo_reclamo_id', reclamo.tipo_reclamo.id.toString());
     params.set('titulo', reclamo.titulo.toString());
+    params.set('fecha', reclamo.fecha.toString());
     params.set('descripcion', reclamo.descripcion.toString());
+    params.set('latitud', reclamo.ubicacion.latitud.toString());
+    params.set('longitud', reclamo.ubicacion.longitud.toString());
     return this.http.post<Reclamo>(`${this.resource}/reclamos`, params.toString(), options);
   }
 
@@ -101,9 +104,12 @@ export class ApiRestV1Provider extends BaseProvider{
       })
     };
     let params = new URLSearchParams();
-    params.set('tipo_reclamo_id', reclamo.tipo_reclamo_id.toString());
+    params.set('tipo_reclamo_id', reclamo.tipo_reclamo.id.toString());
     params.set('titulo', reclamo.titulo.toString());
+    params.set('fecha', reclamo.fecha.toString());
     params.set('descripcion', reclamo.descripcion.toString());
+    params.set('latitud', reclamo.ubicacion.latitud.toString());
+    params.set('longitud', reclamo.ubicacion.longitud.toString());
     return this.http.put<Reclamo>(`${this.resource}/reclamos/${reclamo.id}`, params.toString(), options);
   }
 

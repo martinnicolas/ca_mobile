@@ -103,6 +103,13 @@ export class FormReclamoPage {
     google.maps.event.addListener(this.map, "click", (event) => {
       // place a marker
       this.placeMarker(event.latLng);
+      this.reclamo.ubicacion.latitud = event.latLng.lat();
+      this.reclamo.ubicacion.longitud = event.latLng.lng();
+    });
+    //listener for marker dragging
+    marker.addListener('drag',(event) => {
+      this.reclamo.ubicacion.latitud = event.latLng.lat();
+      this.reclamo.ubicacion.longitud = event.latLng.lng();
     });
   }
 
@@ -120,6 +127,8 @@ export class FormReclamoPage {
       google.maps.event.addListener(this.map, "click", (event) => {
         // place a marker
         this.placeMarker(event.latLng);
+        this.reclamo.ubicacion.latitud = event.latLng.lat();
+        this.reclamo.ubicacion.longitud = event.latLng.lng();
       });
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -136,6 +145,11 @@ export class FormReclamoPage {
     });
     // add marker in markers array
     this.markersArray.push(marker);
+    //listener for marker dragging
+    marker.addListener('drag',(event) => {
+      this.reclamo.ubicacion.latitud = event.latLng.lat();
+      this.reclamo.ubicacion.longitud = event.latLng.lng();
+    });
   }
 
   deleteOverlays() {

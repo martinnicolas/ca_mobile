@@ -62,9 +62,7 @@ export class MisReclamosPage {
   }
 
   getItems(ev: any) {
-
     const val = ev.target.value;
-
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.reclamos = this.busqueda_reclamos.filter((item) => {
