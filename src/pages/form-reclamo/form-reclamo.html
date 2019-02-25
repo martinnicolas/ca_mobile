@@ -14,7 +14,9 @@
 
 
 <ion-content padding>
-  <div #map id="map"></div>
+  <div id="map-wrapper">
+    <div #map id="map"></div>
+  </div>
   <ion-item class="item-form">
     <ion-label color="primary" floating>Tipo de reclamo</ion-label>
     <ion-select [(ngModel)]="reclamo.tipo_reclamo.id" okText="Aceptar" cancelText="Cancelar">
