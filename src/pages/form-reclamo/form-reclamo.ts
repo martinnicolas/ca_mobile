@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TipoReclamo } from '../../models/TipoReclamo';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
@@ -28,13 +28,15 @@ export class FormReclamoPage {
   @ViewChild("map") mapElement;
   map: any;
   markersArray = [];
+  loader: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public apiService: ApiRestV1Provider,
     private localStorage: LocalStorageProvider,
-    private geolocation: Geolocation) {
+    private geolocation: Geolocation,
+    public loadingCtrl: LoadingController) {
     this.selectedItem = this.navParams.get('item');
     if (this.selectedItem) {
       this.reclamo = Object.assign({}, this.selectedItem);
@@ -46,9 +48,18 @@ export class FormReclamoPage {
 
   getTiposReclamo(): void {
     this.localStorage.getData('auth_data').then((auth_data) => {
+      this.createLoading();
+      this.loader.present();
       this.apiService.getTiposReclamo(auth_data.auth_token).subscribe(data => {
         this.tipos_reclamo = data;
+        this.loader.dismiss();
       });
+    });
+  }
+
+  createLoading() {
+    this.loader = this.loadingCtrl.create({
+      content: "Espere por favor...",
     });
   }
 
