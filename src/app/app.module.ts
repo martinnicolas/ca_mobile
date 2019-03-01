@@ -18,6 +18,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { LocalStorageProvider } from '../providers/local-storage/local-storage';
 import { VerUbicacionPage } from '../pages/ver-ubicacion/ver-ubicacion';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ApiRestV1Provider,
     LocalStorageProvider,
-    Geolocation
+    Geolocation,
+    Camera
   ]
 })
 export class AppModule {}

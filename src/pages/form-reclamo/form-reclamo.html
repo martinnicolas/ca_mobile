@@ -17,6 +17,9 @@
   <div id="map-wrapper">
     <div #map id="map"></div>
   </div>
+  <button ion-button block color="primary" (click)="takePicture()">
+    <ion-icon name="camera"></ion-icon>
+  </button>
   <ion-item class="item-form">
     <ion-label color="primary" floating>Tipo de reclamo</ion-label>
     <ion-select [(ngModel)]="reclamo.tipo_reclamo.id" okText="Aceptar" cancelText="Cancelar">

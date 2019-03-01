@@ -4,8 +4,9 @@ import { TipoReclamo } from '../../models/TipoReclamo';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
-import { initDomAdapter } from '@angular/platform-browser/src/browser';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 
 /**
  * Generated class for the FormReclamoPage page.
@@ -36,7 +37,8 @@ export class FormReclamoPage {
     public apiService: ApiRestV1Provider,
     private localStorage: LocalStorageProvider,
     private geolocation: Geolocation,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private camera: Camera) {
     this.selectedItem = this.navParams.get('item');
     if (this.selectedItem) {
       this.reclamo = Object.assign({}, this.selectedItem);
@@ -170,6 +172,24 @@ export class FormReclamoPage {
       });
       this.markersArray.length = 0;
     }
+  }
+
+  takePicture() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.reclamo.imagen = base64Image; 
+     }, (err) => {
+      // Handle error
+     });
   }
 
   ionViewDidLoad() {

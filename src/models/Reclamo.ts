@@ -4,7 +4,7 @@ import { Ubicacion } from "./Ubicacion";
 
 export class Reclamo {
     id: number;
-    imagen: any;
+    imagen: string;
     titulo: string;
     descripcion: string;
     fecha: Date;

@@ -87,6 +87,7 @@ export class ApiRestV1Provider extends BaseProvider{
       })
     };
     let params = new URLSearchParams();
+    params.set('imagen', reclamo.imagen.toString());
     params.set('tipo_reclamo_id', reclamo.tipo_reclamo.id.toString());
     params.set('titulo', reclamo.titulo.toString());
     params.set('fecha', reclamo.fecha.toString());
@@ -104,6 +105,7 @@ export class ApiRestV1Provider extends BaseProvider{
       })
     };
     let params = new URLSearchParams();
+    params.set('imagen', reclamo.imagen.toString());
     params.set('tipo_reclamo_id', reclamo.tipo_reclamo.id.toString());
     params.set('titulo', reclamo.titulo.toString());
     params.set('fecha', reclamo.fecha.toString());
