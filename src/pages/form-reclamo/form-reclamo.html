@@ -17,9 +17,20 @@
   <div id="map-wrapper">
     <div #map id="map"></div>
   </div>
-  <button ion-button block color="primary" (click)="takePicture()">
-    <ion-icon name="camera"></ion-icon>
-  </button>
+  
+  <ion-item class="item-reclamo" text-wrap>
+    <ion-thumbnail item-start>
+      <img src="{{(reclamo.imagen)? reclamo.imagen:'assets/imgs/no-img.png'}}"/>
+    </ion-thumbnail>
+    <h2>Seleccione una imagen</h2>
+    <button ion-button block color="primary" (click)="takePicture()">
+      <ion-icon name="camera"></ion-icon>
+    </button>
+    <button ion-button block color="primary" (click)="selectPicture()">
+      <ion-icon name="images"></ion-icon>
+    </button>
+  </ion-item>
+  
   <ion-item class="item-form">
     <ion-label color="primary" floating>Tipo de reclamo</ion-label>
     <ion-select [(ngModel)]="reclamo.tipo_reclamo.id" okText="Aceptar" cancelText="Cancelar">

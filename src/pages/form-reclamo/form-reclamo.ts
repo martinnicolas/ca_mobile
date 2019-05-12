@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { TipoReclamo } from '../../models/TipoReclamo';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
@@ -29,6 +29,7 @@ export class FormReclamoPage {
   @ViewChild("map") mapElement;
   map: any;
   markersArray = [];
+  toast: any;
   loader: any;
 
   constructor(
@@ -38,7 +39,8 @@ export class FormReclamoPage {
     private localStorage: LocalStorageProvider,
     private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
-    private camera: Camera) {
+    private camera: Camera,
+    public toastCtrl: ToastController) {
     this.selectedItem = this.navParams.get('item');
     if (this.selectedItem) {
       this.reclamo = Object.assign({}, this.selectedItem);
@@ -120,7 +122,7 @@ export class FormReclamoPage {
       this.reclamo.ubicacion.longitud = event.latLng.lng();
     });
     //listener for marker dragging
-    marker.addListener('drag',(event) => {
+    marker.addListener('drag', (event) => {
       this.reclamo.ubicacion.latitud = event.latLng.lat();
       this.reclamo.ubicacion.longitud = event.latLng.lng();
     });
@@ -159,7 +161,7 @@ export class FormReclamoPage {
     // add marker in markers array
     this.markersArray.push(marker);
     //listener for marker dragging
-    marker.addListener('drag',(event) => {
+    marker.addListener('drag', (event) => {
       this.reclamo.ubicacion.latitud = event.latLng.lat();
       this.reclamo.ubicacion.longitud = event.latLng.lng();
     });
@@ -177,19 +179,54 @@ export class FormReclamoPage {
   takePicture() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
-    
+
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.reclamo.imagen = base64Image; 
-     }, (err) => {
+      this.reclamo.imagen = base64Image;
+    }, (err) => {
       // Handle error
-     });
+      this.createToast();
+      this.toast.setMessage("error: "+err);
+      this.toast.present();
+    });
+  }
+
+  selectPicture() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.reclamo.imagen = base64Image;
+    }, (err) => {
+      // Handle error
+      this.createToast();
+      this.toast.setMessage("error: "+err);
+      this.toast.present();
+    });
+  }
+
+  createToast() {
+    this.toast = this.toastCtrl.create({
+      message: 'Ocurrion un error!',
+      duration: 3000,
+      position: 'top',
+      showCloseButton: true,
+      closeButtonText: 'Cerrar'
+    });
   }
 
   ionViewDidLoad() {
