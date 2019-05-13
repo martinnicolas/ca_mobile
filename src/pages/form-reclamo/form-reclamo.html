@@ -20,7 +20,7 @@
   
   <ion-item class="item-reclamo" text-wrap>
     <ion-thumbnail item-start>
-      <img src="{{(reclamo.imagen)? reclamo.imagen:'assets/imgs/no-img.png'}}"/>
+      <img src="{{(reclamo.imagen)? reclamo.imagen.url:'assets/imgs/no-img.png'}}"/>
     </ion-thumbnail>
     <h2>Seleccione una imagen</h2>
     <button ion-button block color="primary" (click)="takePicture()">
