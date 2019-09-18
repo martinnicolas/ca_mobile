@@ -76,6 +76,7 @@ export class FormReclamoPage {
   }
 
   nuevoReclamo() {
+    this.leerArchivo();
     this.localStorage.getData('auth_data').then((auth_data) => {
       this.apiService.createReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
         this.reclamo = data;
@@ -85,12 +86,17 @@ export class FormReclamoPage {
   }
 
   modificarReclamo() {
+    this.leerArchivo();
     this.localStorage.getData('auth_data').then((auth_data) => {
       this.apiService.updateReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
         this.reclamo = data;
         this.navCtrl.pop();
       });
     });
+  }
+
+  leerArchivo() {
+    
   }
 
   initMap() {
@@ -179,20 +185,19 @@ export class FormReclamoPage {
   takePicture() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.CAMERA,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      saveToPhotoAlbum: true
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.reclamo.imagen = base64Image;
+      this.reclamo.imagen_uri = imageData;
     }, (err) => {
       // Handle error
       this.createToast();
-      this.toast.setMessage("error: "+err);
+      this.toast.setMessage("No se ha seleccionado ninguna imagen");
       this.toast.present();
     });
   }
@@ -200,28 +205,24 @@ export class FormReclamoPage {
   selectPicture() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM
+      mediaType: this.camera.MediaType.PICTURE
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.reclamo.imagen = base64Image;
+      this.reclamo.imagen_uri = imageData;
     }, (err) => {
       // Handle error
       this.createToast();
-      this.toast.setMessage("error: "+err);
+      this.toast.setMessage("No se ha seleccionado ninguna imagen");
       this.toast.present();
     });
   }
 
   createToast() {
     this.toast = this.toastCtrl.create({
-      message: 'Ocurrion un error!',
       duration: 3000,
       position: 'top',
       showCloseButton: true,

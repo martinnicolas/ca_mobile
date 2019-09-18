@@ -83,36 +83,36 @@ export class ApiRestV1Provider extends BaseProvider{
     let options = {
       headers: new HttpHeaders({
         'Authorization': 'Bearer '+token,
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'multipart/form-data'
       })
     };
-    let params = new URLSearchParams();
-    params.set('imagen', reclamo.imagen.toString());
-    params.set('tipo_reclamo_id', reclamo.tipo_reclamo.id.toString());
-    params.set('titulo', reclamo.titulo.toString());
-    params.set('fecha', reclamo.fecha.toString());
-    params.set('descripcion', reclamo.descripcion.toString());
-    params.set('latitud', reclamo.ubicacion.latitud.toString());
-    params.set('longitud', reclamo.ubicacion.longitud.toString());
-    return this.http.post<Reclamo>(`${this.resource}/reclamos`, params.toString(), options);
+    let formData = new FormData();
+    formData.append('imagen', reclamo.imagen_blob, reclamo.imagen_file.name);
+    formData.append('tipo_reclamo_id', reclamo.tipo_reclamo.id.toString());
+    formData.append('titulo', reclamo.titulo.toString());
+    formData.append('fecha', reclamo.fecha.toString());
+    formData.append('descripcion', reclamo.descripcion.toString());
+    formData.append('latitud', reclamo.ubicacion.latitud.toString());
+    formData.append('longitud', reclamo.ubicacion.longitud.toString());
+    return this.http.post<Reclamo>(`${this.resource}/reclamos`, formData, options);
   }
 
   updateReclamo(reclamo: Reclamo, token: string): Observable<Reclamo> {
     let options = {
       headers: new HttpHeaders({
         'Authorization': 'Bearer '+token,
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'multipart/form-data'
       })
     };
-    let params = new URLSearchParams();
-    params.set('imagen', reclamo.imagen.toString());
-    params.set('tipo_reclamo_id', reclamo.tipo_reclamo.id.toString());
-    params.set('titulo', reclamo.titulo.toString());
-    params.set('fecha', reclamo.fecha.toString());
-    params.set('descripcion', reclamo.descripcion.toString());
-    params.set('latitud', reclamo.ubicacion.latitud.toString());
-    params.set('longitud', reclamo.ubicacion.longitud.toString());
-    return this.http.put<Reclamo>(`${this.resource}/reclamos/${reclamo.id}`, params.toString(), options);
+    let formData = new FormData();
+    formData.append('imagen', reclamo.imagen_blob, reclamo.imagen_file.name);
+    formData.append('tipo_reclamo_id', reclamo.tipo_reclamo.id.toString());
+    formData.append('titulo', reclamo.titulo.toString());
+    formData.append('fecha', reclamo.fecha.toString());
+    formData.append('descripcion', reclamo.descripcion.toString());
+    formData.append('latitud', reclamo.ubicacion.latitud.toString());
+    formData.append('longitud', reclamo.ubicacion.longitud.toString());
+    return this.http.put<Reclamo>(`${this.resource}/reclamos/${reclamo.id}`, formData, options);
   }
 
   deleteReclamo(reclamo: Reclamo, token: string): Observable<Reclamo> {
