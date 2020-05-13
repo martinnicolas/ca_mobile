@@ -23,7 +23,6 @@ export class VerReclamoPage {
 
   selectedItem: any;
   toast: any;
-  reclamo: Reclamo;
   user: User;
 
   constructor(
@@ -46,11 +45,12 @@ export class VerReclamoPage {
       this.apiService.valorarReclamo(this.selectedItem, this.user, auth_data.auth_token).
       subscribe(data => {
         //messages ok    
+        this.selectedItem.valoracion = data.valoracion;
         this.toast.setMessage('Apoyaste este reclamo!');
         this.toast.present();
-      }, error => {
+      }, errorData => {
         //messages error
-        this.toast.setMessage('Ocurrio un error.');
+        this.toast.setMessage(errorData.error);
         this.toast.present();
       });
     });

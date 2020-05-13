@@ -30,7 +30,7 @@ export class HomePage {
     private localStorage: LocalStorageProvider,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController) {
-      this.getReclamos();
+      
   }
 
   getReclamos(): void {
@@ -56,11 +56,12 @@ export class HomePage {
       this.apiService.valorarReclamo(item, auth_data.user,  auth_data.auth_token).
       subscribe(data => {
         //messages ok    
+        item.valoracion = data.valoracion;
         this.toast.setMessage('Apoyaste este reclamo!');
         this.toast.present();
-      }, error => {
+      }, errorData => {
         //messages error
-        this.toast.setMessage('Ocurrio un error.');
+        this.toast.setMessage(errorData.error);
         this.toast.present();
       });
     });            
@@ -84,6 +85,10 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+  }
+
+  ionViewWillEnter() {
+    this.getReclamos();
   }
 
 }

@@ -30,7 +30,6 @@ export class MisReclamosPage {
     public apiService: ApiRestV1Provider,
     private localStorage: LocalStorageProvider,
     public loadingCtrl: LoadingController) {
-      this.getMisReclamos();
   }
 
   getMisReclamos(): void {
@@ -75,6 +74,10 @@ export class MisReclamosPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MisReclamosPage');
+  }
+
+  ionViewWillEnter() {
+    this.getMisReclamos();
   }
 
 }

@@ -82,7 +82,13 @@ export class FormReclamoPage {
       this.localStorage.getData('auth_data').then((auth_data) => {
         this.apiService.createReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
           this.reclamo = data;
+          this.createToast();
+          this.toast.setMessage("Los datos fueron guardados!");
+          this.toast.present();
           this.navCtrl.pop();
+        }, errorData => {
+          this.toast.setMessage(errorData.error);
+          this.toast.present();
         });
       });
     });
@@ -93,7 +99,13 @@ export class FormReclamoPage {
       this.localStorage.getData('auth_data').then((auth_data) => {
         this.apiService.updateReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
           this.reclamo = data;
+          this.createToast();
+          this.toast.setMessage("Los datos fueron modificados!");
+          this.toast.present();
           this.navCtrl.pop();
+        }, errorData => {
+          this.toast.setMessage(errorData.error);
+          this.toast.present();
         });
       });
     });

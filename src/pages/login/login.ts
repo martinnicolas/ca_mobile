@@ -46,12 +46,11 @@ export class LoginPage {
       this.auth_data = data;
       this.localStorage.setData('auth_data', this.auth_data);
       this.navCtrl.push(MainPage);
-      console.log("Login");
-    }, error => {
+    }, errorData => {
       //messages error
       this.loader.dismiss();
       this.createToast();
-      this.toast.setMessage('Usuario o clave incorrectas.');
+      this.toast.setMessage(errorData.error);
       this.toast.present();
     });
   }
