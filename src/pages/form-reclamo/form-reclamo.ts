@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, normalizeURL } from 'ionic-angular';
 import { TipoReclamo } from '../../models/TipoReclamo';
 import { ApiRestV1Provider } from '../../providers/api-rest-v1/api-rest-v1';
 import { Reclamo } from '../../models/Reclamo';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { Geolocation } from '@ionic-native/geolocation';
+import { File, FileEntry } from '@ionic-native/file';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
@@ -40,6 +41,7 @@ export class FormReclamoPage {
     private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
     private camera: Camera,
+    private file: File,
     public toastCtrl: ToastController) {
     this.selectedItem = this.navParams.get('item');
     if (this.selectedItem) {
@@ -76,27 +78,25 @@ export class FormReclamoPage {
   }
 
   nuevoReclamo() {
-    this.leerArchivo();
-    this.localStorage.getData('auth_data').then((auth_data) => {
-      this.apiService.createReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
-        this.reclamo = data;
-        this.navCtrl.pop();
+    this.leerArchivo().then(() => {
+      this.localStorage.getData('auth_data').then((auth_data) => {
+        this.apiService.createReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
+          this.reclamo = data;
+          this.navCtrl.pop();
+        });
       });
     });
   }
 
   modificarReclamo() {
-    this.leerArchivo();
-    this.localStorage.getData('auth_data').then((auth_data) => {
-      this.apiService.updateReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
-        this.reclamo = data;
-        this.navCtrl.pop();
+    this.leerArchivo().then(() => {
+      this.localStorage.getData('auth_data').then((auth_data) => {
+        this.apiService.updateReclamo(this.reclamo, auth_data.auth_token).subscribe(data => {
+          this.reclamo = data;
+          this.navCtrl.pop();
+        });
       });
     });
-  }
-
-  leerArchivo() {
-    
   }
 
   initMap() {
@@ -193,8 +193,8 @@ export class FormReclamoPage {
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      this.reclamo.imagen_uri = imageData;
-    }, (err) => {
+      this.reclamo.imagen_uri = normalizeURL(imageData);
+    }).catch((error) => { 
       // Handle error
       this.createToast();
       this.toast.setMessage("No se ha seleccionado ninguna imagen");
@@ -212,13 +212,33 @@ export class FormReclamoPage {
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      this.reclamo.imagen_uri = imageData;
-    }, (err) => {
+      this.reclamo.imagen_uri = normalizeURL(imageData);
+    }).catch((error) => { 
       // Handle error
       this.createToast();
       this.toast.setMessage("No se ha seleccionado ninguna imagen");
       this.toast.present();
     });
+  }
+
+  leerArchivo() {
+    return this.file.resolveLocalFilesystemUrl(this.reclamo.imagen_uri)
+      .then(entry => (<FileEntry>entry).file(file => this.readFile(file)))
+      .catch((error) => {
+        this.createToast();
+        this.toast.setMessage("Error: "+ error);
+        this.toast.present();
+      });
+  }
+
+  readFile(file: any) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const imgBlob = new Blob([reader.result], { type: file.type });
+      this.reclamo.imagen_blob = imgBlob;
+      this.reclamo.imagen_file = file;
+    };
+    reader.readAsArrayBuffer(file); //?¡es necesario?
   }
 
   createToast() {

@@ -53,7 +53,7 @@ export class HomePage {
   valorarReclamo(event, item) {
     this.localStorage.getData('auth_data').then((auth_data) => {
       this.createToast();
-      this.apiService.valorarReclamo(item, auth_data.user, auth_data.auth_token).
+      this.apiService.valorarReclamo(item, auth_data.user,  auth_data.auth_token).
       subscribe(data => {
         //messages ok    
         this.toast.setMessage('Apoyaste este reclamo!');

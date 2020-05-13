@@ -41,10 +41,9 @@ export class VerReclamoPage {
   }
 
   valorar() {
-    console.log('click Me gusta');
     this.localStorage.getData('auth_data').then((auth_data) => {
       this.createToast();
-      this.apiService.valorarReclamo(this.selectedItem, auth_data.user, auth_data.auth_token).
+      this.apiService.valorarReclamo(this.selectedItem, this.user, auth_data.auth_token).
       subscribe(data => {
         //messages ok    
         this.toast.setMessage('Apoyaste este reclamo!');
@@ -68,14 +67,12 @@ export class VerReclamoPage {
   }
 
   editar() {
-    console.log('click Editar');
     this.navCtrl.push(FormReclamoPage, {
       item: this.selectedItem
     });    
   }
 
   eliminar() {
-    console.log('click Eliminar');
     this.showConfirm(this.selectedItem);
   }
 
@@ -109,7 +106,6 @@ export class VerReclamoPage {
         this.navCtrl.pop();
       }, error => {
         this.createToast();
-        this.toast.setMessage('Ocurrio un error');
         this.toast.dismiss();
       });
     });

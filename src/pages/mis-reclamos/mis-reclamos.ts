@@ -30,7 +30,7 @@ export class MisReclamosPage {
     public apiService: ApiRestV1Provider,
     private localStorage: LocalStorageProvider,
     public loadingCtrl: LoadingController) {
-    this.getMisReclamos();
+      this.getMisReclamos();
   }
 
   getMisReclamos(): void {

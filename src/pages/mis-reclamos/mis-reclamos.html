@@ -29,7 +29,7 @@
       <h2>{{item.titulo}}</h2>
       <p>{{item.fecha | date: 'dd/MM/yyyy'}} 
         <ion-badge item-end>
-          <ion-icon name="thumbs-up"></ion-icon> 12
+          <ion-icon name="thumbs-up"></ion-icon> {{item.valoracion}}
         </ion-badge>
       </p>
       <button ion-button clear item-end (click)="itemTapped($event, item)">Ver</button>

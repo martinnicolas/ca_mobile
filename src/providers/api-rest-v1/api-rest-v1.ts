@@ -22,7 +22,6 @@ export class ApiRestV1Provider extends BaseProvider{
   //Resource
   private resource = `${this.baseURL}/${this.apiName}`;
 
-
   constructor(
     public http: HttpClient) {
     super();
@@ -82,8 +81,7 @@ export class ApiRestV1Provider extends BaseProvider{
   createReclamo(reclamo: Reclamo, token: string): Observable<Reclamo> {
     let options = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+token,
-        'Content-Type': 'multipart/form-data'
+        'Authorization': 'Bearer '+token
       })
     };
     let formData = new FormData();
@@ -100,8 +98,7 @@ export class ApiRestV1Provider extends BaseProvider{
   updateReclamo(reclamo: Reclamo, token: string): Observable<Reclamo> {
     let options = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+token,
-        'Content-Type': 'multipart/form-data'
+        'Authorization': 'Bearer '+token
       })
     };
     let formData = new FormData();

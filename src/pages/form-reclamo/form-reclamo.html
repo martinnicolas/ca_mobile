@@ -20,9 +20,10 @@
   
   <ion-item class="item-reclamo" text-wrap>
     <ion-thumbnail item-start>
-      <img src="{{(reclamo.imagen)? reclamo.imagen.url:'assets/imgs/no-img.png'}}"/>
+      <img *ngIf="reclamo.imagen" src="{{reclamo.imagen.url}}"/>
+      <img *ngIf="reclamo.imagen_uri" src="{{reclamo.imagen_uri}}"/>
+      <img *ngIf="!reclamo.imagen && !reclamo.imagen_uri" src="{{'assets/imgs/no-img.png'}}"/>
     </ion-thumbnail>
-    <h2>Seleccione una imagen</h2>
     <button ion-button block color="primary" (click)="takePicture()">
       <ion-icon name="camera"></ion-icon>
     </button>

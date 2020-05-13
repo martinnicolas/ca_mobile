@@ -4,6 +4,7 @@ import { Ubicacion } from "./Ubicacion";
 
 export class Reclamo {
     id: number;
+    imagen: any;
     imagen_uri: any;
     imagen_blob: any;
     imagen_file: File;
@@ -13,6 +14,7 @@ export class Reclamo {
     ubicacion_id: number;
     tipo_reclamo_id: number;
     user_id: number;
+    valoracion: number;
     
     ubicacion: Ubicacion;
     tipo_reclamo: TipoReclamo;
