@@ -20,7 +20,7 @@
   
   <ion-item class="item-reclamo" text-wrap>
     <ion-thumbnail item-start>
-      <img *ngIf="reclamo.imagen" src="{{reclamo.imagen.url}}"/>
+      <img *ngIf="reclamo.imagen && !reclamo.imagen_uri" src="{{reclamo.imagen.url}}"/>
       <img *ngIf="reclamo.imagen_uri" src="{{reclamo.imagen_uri}}"/>
       <img *ngIf="!reclamo.imagen && !reclamo.imagen_uri" src="{{'assets/imgs/no-img.png'}}"/>
     </ion-thumbnail>
