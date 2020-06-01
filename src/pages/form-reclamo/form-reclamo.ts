@@ -6,6 +6,7 @@ import { Reclamo } from '../../models/Reclamo';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { Geolocation } from '@ionic-native/geolocation';
 import { File, FileEntry } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
@@ -42,6 +43,7 @@ export class FormReclamoPage {
     public loadingCtrl: LoadingController,
     private camera: Camera,
     private file: File,
+    private filePath: FilePath,
     public toastCtrl: ToastController) {
     this.selectedItem = this.navParams.get('item');
     if (this.selectedItem) {
@@ -197,7 +199,7 @@ export class FormReclamoPage {
   takePicture() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.NATIVE_URI,
       sourceType: this.camera.PictureSourceType.CAMERA,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -217,14 +219,16 @@ export class FormReclamoPage {
   selectPicture() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.NATIVE_URI,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      this.reclamo.imagen_uri = normalizeURL(imageData);
+      this.filePath.resolveNativePath(imageData).then(filePath => { 
+        this.reclamo.imagen_uri = filePath;
+      }).catch(error => console.log(error));
     }).catch((error) => { 
       // Handle error
       this.createToast();

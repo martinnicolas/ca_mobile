@@ -20,6 +20,7 @@ import { VerUbicacionPage } from '../pages/ver-ubicacion/ver-ubicacion';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { File } from '@ionic-native/file';
     LocalStorageProvider,
     Geolocation,
     Camera,
-    File
+    File,
+    FilePath
   ]
 })
 export class AppModule {}
