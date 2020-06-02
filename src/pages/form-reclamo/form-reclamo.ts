@@ -227,7 +227,7 @@ export class FormReclamoPage {
 
     this.camera.getPicture(options).then((imageData) => {
       this.filePath.resolveNativePath(imageData).then(filePath => { 
-        this.reclamo.imagen_uri = filePath;
+        this.reclamo.imagen_uri = normalizeURL(filePath);
       }).catch(error => console.log(error));
     }).catch((error) => { 
       // Handle error

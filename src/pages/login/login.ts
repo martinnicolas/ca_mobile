@@ -40,8 +40,7 @@ export class LoginPage {
   signin() {
     this.createLoading();
     this.loader.present();
-    this.apiService.signin(this.user)
-    .subscribe(data => {
+    this.apiService.signin(this.user).subscribe(data => {
       this.loader.dismiss();
       this.auth_data = data;
       this.localStorage.setData('auth_data', this.auth_data);
