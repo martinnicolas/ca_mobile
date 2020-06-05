@@ -6,6 +6,7 @@ import { User } from '../../models/User';
 import { SignUpPage } from '../sign-up/sign-up';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AuthData } from '../../models/AuthData';
+import {Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 /**
  * Generated class for the LoginPage page.
@@ -25,6 +26,7 @@ export class LoginPage {
   user: User;
   toast: any;
   loader: any;
+  loginForm : FormGroup;
 
   constructor(
     public navCtrl: NavController, 
@@ -32,12 +34,23 @@ export class LoginPage {
     public apiService: ApiRestV1Provider,
     private localStorage: LocalStorageProvider,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    private formBuilder: FormBuilder) {
       this.auth_data = new AuthData();
       this.user = new User();
+      this.setFormValidations()
+  }
+
+  setFormValidations() {
+    this.loginForm = this.formBuilder.group({
+      email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(User.EMAIL_PATTERN)])),
+      password: new FormControl('', Validators.required),
+    });
   }
 
   signin() {
+    this.user.email = this.loginForm.get('email').value;
+    this.user.password = this.loginForm.get('password').value;
     this.createLoading();
     this.loader.present();
     this.apiService.signin(this.user).subscribe(data => {
@@ -72,10 +85,6 @@ export class LoginPage {
 
   signup() {
     this.navCtrl.push(SignUpPage);
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
 
 }

@@ -19,17 +19,35 @@
       <img id="logo-login" width="80" height="80" src="assets/imgs/logot.png">
     </ion-col>
   </ion-row>  
-  <ion-item class="item-login">
-    <ion-label color="primary" floating>Email</ion-label>
-    <ion-input [(ngModel)]="user.email" type="text"></ion-input>
-  </ion-item>
-  <ion-item class="item-login">
-    <ion-label color="primary" floating>Clave</ion-label>
-    <ion-input [(ngModel)]="user.password" type="password"></ion-input>
-  </ion-item>
-  <button ion-button block color="secondary" (click)="signin()">
-    Ingresar
-  </button>
+  <form [formGroup]="loginForm" (ngSubmit)="signin()">    
+    <ion-item class="item-login">
+      <ion-label color="primary" floating>Email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+    
+    <ng-container *ngFor="let validation of user.validation_messages.email">
+      <div class="error-message" *ngIf="loginForm.get('email').hasError(validation.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">
+        <ion-icon name="alert"></ion-icon>
+        {{ validation.message }}
+      </div>
+    </ng-container>
+    
+    <ion-item class="item-login">
+      <ion-label color="primary" floating>Clave</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    
+    <ng-container *ngFor="let validation of user.validation_messages.password">
+      <div class="error-message" *ngIf="loginForm.get('password').hasError(validation.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+        <ion-icon name="alert"></ion-icon>
+        {{ validation.message }}
+      </div>
+    </ng-container>
+    
+    <button ion-button block type="submit" color="secondary" [disabled]="!loginForm.valid">
+      Ingresar
+    </button>
+  </form>
   <!-- 
   <button ion-button block (click)="signup()">
     Registrarse
