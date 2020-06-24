@@ -1,6 +1,6 @@
 # ca_mobile
 
-3D Game, FPS (First Person Shooter)
+App mobile
 
 ## Requirements
 
