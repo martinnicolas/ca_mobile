@@ -1,8 +1,8 @@
 # ca_mobile
 
-App mobile. https://ciudadactiva.herokuapp.com
+App móvil. https://ciudadactiva.herokuapp.com
 
-## Requirements
+## Requisitos
 
   + Ionic 3
   + Angular 4
