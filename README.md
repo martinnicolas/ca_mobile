@@ -19,10 +19,6 @@ App mobile
 
 <img src="https://user-images.githubusercontent.com/5104496/85630436-ff480800-b649-11ea-81b6-3b9014faaac2.png" alt="ca_mobile" width="300" height="300"/>
 
-</p>
-
-<p align="center">
-
 <img src="https://user-images.githubusercontent.com/5104496/85631667-55b64600-b64c-11ea-8ce1-71e50c740812.png" alt="ca_mobile" width="300" height="300"/> 
 
 <img src="https://user-images.githubusercontent.com/5104496/85631720-6ebef700-b64c-11ea-8ad7-8831881cd035.png" alt="ca_mobile" width="300" height="300"/>
