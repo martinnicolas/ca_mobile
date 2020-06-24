@@ -1,6 +1,6 @@
 # ca_mobile
 
-App mobile
+App mobile. https://ciudadactiva.herokuapp.com
 
 ## Requirements
 
