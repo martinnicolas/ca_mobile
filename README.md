@@ -1,11 +1,11 @@
-# ca_mobile
+# Ciudad Activa (mobile app)
 
-App móvil. https://ciudadactiva.herokuapp.com
+[![Wercker](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 
-## Requisitos
+Aplicación móvil del sitio. https://ciudadactiva.herokuapp.com
 
-  + Ionic 3
-  + Angular 4
+  * Ionic 3
+  * Angular 4
 
 <p align="center">
 
