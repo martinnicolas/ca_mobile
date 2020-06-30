@@ -2,10 +2,13 @@
 
 [![Wercker](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 
-Aplicación móvil del sitio. https://ciudadactiva.herokuapp.com
 
   * Ionic 3
   * Angular 4
+
+Aplicación móvil del sitio. https://ciudadactiva.herokuapp.com
+
+
 
 <p align="center">
 
